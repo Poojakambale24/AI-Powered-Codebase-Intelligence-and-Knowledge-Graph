@@ -1,0 +1,18 @@
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-graphence}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-change_me}
+      POSTGRES_DB: ${POSTGRES_DB:-graphence}
+    ports: ["5432:5432"]
+    volumes: [graphence_pgdata:/var/lib/postgresql/data]
+  neo4j:
+    image: neo4j:5
+    environment:
+      NEO4J_AUTH: ${NEO4J_USERNAME:-neo4j}/${NEO4J_PASSWORD:-change_me}
+    ports: ["7474:7474", "7687:7687"]
+    volumes: [graphence_neo4jdata:/data]
+volumes:
+  graphence_pgdata:
+  graphence_neo4jdata:
